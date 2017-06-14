@@ -1,0 +1,14 @@
+{
+  "development": {
+    "database": "node_amazon_dev",
+    "dialect": "postgres"
+  },
+  "test": {
+    "database": "node_amazon_test",
+    "dialect": "postgres"
+  },
+  "production": {
+    "database": "node_amazon_production",
+    "dialect": "postgres"
+  }
+}
