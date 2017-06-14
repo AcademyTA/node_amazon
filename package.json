@@ -6,7 +6,8 @@
     "start": "nodemon ./bin/www",
     "debug": "nodemon --inspect ./bin/www",
     "db:create": "createdb node_amazon_dev",
-    "db:drop": "dropdb node_amazon_dev"
+    "db:drop": "dropdb node_amazon_dev",
+    "db:migrate": "sequelize db:migrate"
   },
   "dependencies": {
     "body-parser": "~1.12.4",
