@@ -4,12 +4,11 @@ module.exports = function(sequelize, DataTypes) {
     title: DataTypes.STRING,
     description: DataTypes.TEXT,
     price: DataTypes.DOUBLE
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+
+  Product.associate = function({ Review }) {
+    Product.hasMany(Review)
+  }
+
   return Product;
 };
