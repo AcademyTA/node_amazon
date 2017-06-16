@@ -10,4 +10,13 @@ router.get('/', (request, response) => {
     })
 })
 
+router.get('/:id', (request, response) => {
+  const id = request.params.id
+
+  Product.findById(id)
+    .then((product) => {
+      response.render('products/show', { product: product })
+    })
+})
+
 module.exports = router
