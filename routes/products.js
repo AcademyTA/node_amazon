@@ -1,5 +1,6 @@
 const express = require('express');
-const router = express.Router()
+const router  = express.Router();
+const reviews = require('./reviews')
 
 const { Product } = require('../models')
 
@@ -32,14 +33,19 @@ router.post('/', (request, response) => {
   })
 })
 
-router.get('/:id', (request, response) => {
+router.get('/:id', async(request, response, next) => {
   const id = request.params.id
 
-  Product.findById(id)
-    .then((product) => {
-      response.render('products/show', { product: product })
-    })
+  try {
+    const product = await Product.findById(id)
+    const reviews = await product.getReviews()
+
+    response.render('products/show', { product: product, reviews: reviews })
+  } catch(error) {
+    next(error);
+  }
 })
 
+router.use('/:productId/reviews', reviews)
 
 module.exports = router
