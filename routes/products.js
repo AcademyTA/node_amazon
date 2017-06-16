@@ -11,6 +11,28 @@ router.get('/', (request, response) => {
     })
 })
 
+router.get('/:id/edit', (request, response, next) => {
+  const { id } = request.params;
+
+  Product
+    .findById(id)
+    .then(product => response.render('products/edit', { product }))
+    .catch(error => next(error))
+});
+
+router.patch('/:id', async function (request, response, next) {
+  const { id } = request.params;
+  const { title, description, price } = request.body;
+
+  try {
+    const product = await Product.findById(id);
+    await product.update({ title, description, price });
+    response.redirect(`/products/${product.id}`);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/new', (request, response) => {
   const product = Product.build()
 
