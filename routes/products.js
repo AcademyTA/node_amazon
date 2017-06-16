@@ -10,6 +10,28 @@ router.get('/', (request, response) => {
     })
 })
 
+router.get('/new', (request, response) => {
+  const product = Product.build()
+
+  response.render('products/new', { product: product })
+})
+
+router.post('/', (request, response) => {
+  const title = request.body.title
+  const description = request.body.description
+  const price = request.body.price
+
+  Product.create({
+    title: title,
+    description: description,
+    price: price
+  }).then((product) => {
+    response.redirect('/products/' + product.id)
+  }).catch((error) => {
+    console.log(error)
+  })
+})
+
 router.get('/:id', (request, response) => {
   const id = request.params.id
 
@@ -18,5 +40,6 @@ router.get('/:id', (request, response) => {
       response.render('products/show', { product: product })
     })
 })
+
 
 module.exports = router
