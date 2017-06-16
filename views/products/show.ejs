@@ -22,6 +22,10 @@
 <% for (let review of reviews) { %>
   <p><%= review.content %></p>
   <p><%= review.rating %></p>
+  <form action="/products/<%= product.id %>/reviews/<%= review.id %>" method="post">
+    <input type="hidden" name="_method" value="DELETE" />
+    <input type="submit" value="Delete"/>
+  </form>
   <hr/>
 <% } %>
 
